@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Create function behat () to run behat container.
+# Create function behat () to run behat container with additional options.
 behat() {
   docker run -ti --rm --link selenium_chrome -h docker-behat -v $(pwd):/home/behat/data:rw bergil/docker-behat /bin/bash -c "behat $*" ;
 }
