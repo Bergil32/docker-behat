@@ -15,6 +15,7 @@ cd docker-behat/
 ```
 sh run.sh
 ```
+
 You can put your tests into "/features" folder and contexts to "/features/bootstrap" folder.
 
 Don't forget to configure behat.yml for new contexts.
