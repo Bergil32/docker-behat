@@ -6,5 +6,6 @@ Description and manuals will be provided later.
 To run tests:
 * Clone this repo.
 * Run shell script.
+```{r, engine='bash', count_lines}
+run.sh
 ```
-sh run.sh
