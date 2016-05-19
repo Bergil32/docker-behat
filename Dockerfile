@@ -37,4 +37,4 @@ RUN cd /home/behat/composer && curl http://getcomposer.org/installer | php \
     && cd /home/behat/composer && php composer.phar install --prefer-source
 ADD behat.yml /home/behat/behat.yml
 ADD features/ /home/behat/features
-ADD reports/ /home/behat/build/test
+ADD reports/ /home/behat/build/tests
