@@ -41,3 +41,5 @@ default:
         content: "#content"
         sidebar: "#sidebar"
     Vanare\BehatCucumberJsonFormatter\Extension:
+      filename: report.json
+      outputDir: %paths.base%/reports
