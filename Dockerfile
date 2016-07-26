@@ -1,39 +1,36 @@
-FROM debian:jessie
+FROM alpine:edge
 MAINTAINER Dmytro Shavaryn <shavarynd@gmail.com>
 
-# Update and install packages
-ENV DEBIAN_FRONTEND noninteractive
-RUN apt-get update \
-    && apt-get install -y curl git \
-    && apt-get install -y -q php5-cli \
-    php5-curl \
-    php5-mysqlnd
+#Install PHP7 with needed exstentions.
+RUN echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
+    && apk add --update php7@testing \
+    php7-dom@testing \
+    php7-curl@testing \
+    php7-json@testing \
+    php7-phar@testing \
+    php7-openssl@testing \
+    php7-mbstring@testing \
+    php7-ctype@testing \
+    curl \
+    && rm -fr /var/cache/apk/* \
+    && ln -s /usr/bin/php7 /usr/bin/php \
+    && curl -sS https://getcomposer.org/installer | php -- --filename=composer \
+    --install-dir=/usr/bin --version=1.0.0 \
 
-# Create "behat" user with password crypted "behat"
-RUN useradd -d /home/behat -m -s /bin/bash behat \
-    && echo "behat:behat" | chpasswd
+# Install Behat.
+WORKDIR /srv
+ADD composer.json composer.json
+RUN composer update
+ADD behat.yml /srv/behat.yml
+ADD features/ /srv/features
 
-# Behat alias in docker container
-ADD behat /home/behat/behat
-RUN chmod +x /home/behat/behat \
+#Initialize Behat.
+WORKDIR /srv/bin
+RUN behat --init
 
-    && mkdir -p /home/behat/data/build/html/behat/ \
+WORKDIR /srv
+CMD behat --format=pretty --out=std --format=cucumber_json --out=std
 
-# Fix permissions
-    && chown -R behat:behat /home/behat \
 
-# Add "behat" to "sudoers"
-    && echo "behat        ALL=(ALL:ALL) ALL" >> /etc/sudoers
 
-USER behat
-WORKDIR /home/behat
-ENV HOME /home/behat
-ENV PATH $PATH:/home/behat
 
-# Install Behat
-RUN mkdir /home/behat/composer
-ADD composer.json /home/behat/composer/composer.json
-RUN cd /home/behat/composer && curl http://getcomposer.org/installer | php \
-    && cd /home/behat/composer && php composer.phar install --prefer-source
-ADD behat.yml /home/behat/behat.yml
-ADD features/ /home/behat/features
