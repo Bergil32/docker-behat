@@ -1,0 +1,46 @@
+default:
+  suites:
+    default:
+      contexts:
+        - FeatureContext: ~
+        - Drupal\DrupalExtension\Context\MinkContext: ~
+        - Drupal\DrupalExtension\Context\DrupalContext: ~
+        - Drupal\DrupalExtension\Context\MarkupContext: ~
+        - Drupal\DrupalExtension\Context\MessageContext: ~
+  extensions:
+    SensioLabs\Behat\PageObjectExtension: ~
+    Behat\MinkExtension:
+      javascript_session: selenium2
+      selenium2:
+        browser: chrome
+        wd_host: http://selenium_chrome:4444/wd/hub
+      base_url: 'https://en.wikipedia.org'
+      goutte:
+        guzzle_parameters:
+          config:
+            curl:
+              CURLOPT_TIMEOUT: 300
+              CURLOPT_CONNECTTIMEOUT: 0
+    Drupal\DrupalExtension:
+      blackbox: ~
+#      api_driver: drupal
+#      drush:
+#        root: %paths.base%/../
+#      drupal:
+#        drupal_root: %paths.base%/../
+      text:
+        log_in: Log in
+        log_out: Log out
+        username_field: Username
+        password_field: Password
+      selectors:
+        message_selector: .messages
+        error_message_selector: .messages.error
+        success_message_selector: .messages.status
+        warning_message_selector: .messages.warning
+      region_map:
+        content: "#content"
+        sidebar: "#sidebar"
+    Vanare\BehatCucumberJsonFormatter\Extension:
+      filename: report.json
+      outputDir: %paths.base%/reports
