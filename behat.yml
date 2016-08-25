@@ -3,6 +3,7 @@ default:
     default:
       contexts:
         - FeatureContext: ~
+        - ScreenshotContext: ~
         - Drupal\DrupalExtension\Context\MinkContext: ~
         - Drupal\DrupalExtension\Context\DrupalContext: ~
         - Drupal\DrupalExtension\Context\MarkupContext: ~
@@ -43,4 +44,4 @@ default:
         sidebar: "#sidebar"
     Vanare\BehatCucumberJsonFormatter\Extension:
       filename: report.json
-      outputDir: %paths.base%/reports
+      outputDir: %paths.base%/artefacts

@@ -26,7 +26,7 @@ ADD behat.yml /srv/behat.yml
 ADD features/ /srv/features
 
 # Create folder for reports.
-RUN mkdir -p reports/
+RUN mkdir -p artefacts/
 
 # Initialize Behat.
 WORKDIR /srv/bin
@@ -34,4 +34,4 @@ RUN behat --init
 
 # Run behat and change permissions for reports folder.
 WORKDIR /srv
-CMD behat --format=pretty --out=std --format=cucumber_json --out=std && chmod -R 777 reports/
+CMD behat --format=pretty --out=std --format=cucumber_json --out=std ; chmod -R 777 artefacts/

@@ -46,9 +46,13 @@ git clone https://github.com/Bergil32/docker-behat.git
 
 * Put your tests  into "features/" folder and remove Test.feature.
 
+
 * Run the shell script.
 ```
 sh run.sh
 ```
+* Reports and text files with information about screenshots are saved in artefacts/ folder.
+
+* Screenshots will be uploaded to [https://wsend.net/](https://wsend.net/).
 
 Additional thanks to [Serge Skripchuk](https://www.drupal.org/u/idtarzanych) for his help.
