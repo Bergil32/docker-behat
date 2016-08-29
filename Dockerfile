@@ -11,6 +11,7 @@ RUN echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/ap
     php7-openssl@testing \
     php7-mbstring@testing \
     php7-ctype@testing \
+    php7-pdo_mysql@testing \
     curl \
     && rm -fr /var/cache/apk/* \
     && ln -s /usr/bin/php7 /usr/bin/php \
