@@ -7,4 +7,4 @@ sleep 1s
 # Start behat container.
 docker run -ti --rm --name=docker_behat --link selenium_chrome -v $(pwd):/srv bergil/docker-behat
 # Stop and remove selenium container.
-docker stop selenium_chrome && docker rm selenium_chrome
+docker rm -f selenium_chrome
