@@ -7,7 +7,7 @@ class ScreenshotContext extends PageObjectExtension
 {
     protected $scenarioTitle = null;
     protected static $wsendUser = null;
-    protected $basicScreenshotFolder = 'artefacts/screenshots';
+    protected $basicScreenshotFolder = 'artifacts/screenshots';
 
      /**
      * @BeforeScenario

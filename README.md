@@ -51,7 +51,7 @@ git clone https://github.com/Bergil32/docker-behat.git
 ```
 sh run.sh
 ```
-* Reports and text files with information about screenshots are saved in artefacts/ folder.
+* Reports and text files with information about screenshots are saved in artifacts/ folder.
 
 * Screenshots will be uploaded to [https://wsend.net/](https://wsend.net/).
 

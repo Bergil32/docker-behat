@@ -24,16 +24,18 @@ WORKDIR /srv
 ADD composer.json composer.json
 RUN composer install \
     && rm composer.lock
-ADD behat.yml /srv/behat.yml
-ADD features/ /srv/features
 
-# Create folder for reports.
-RUN mkdir -p artefacts/
+# ADD behat.yml and features folder.
+ADD behat.yml behat.yml \
+    features/ features/
 
 # Initialize Behat.
 WORKDIR /srv/bin
 RUN behat --init
 
-# Run behat and change permissions for reports folder.
-WORKDIR /srv
-CMD behat --format=pretty --out=std --format=cucumber_json --out=std ; chmod -R 777 artefacts/
+# Copy entrypoint.sh script.
+COPY entrypoint.sh /entrypoint.sh
+
+WORKDIR /
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["--format=pretty", "--out=std", "--format=cucumber_json", "--out=std"]
