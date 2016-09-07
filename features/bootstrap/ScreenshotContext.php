@@ -2,6 +2,7 @@
 
 use Behat\Testwork\Tester\Result\TestResult;
 use Behat\Mink\Driver\Selenium2Driver;
+use GuzzleHttp\Client;
 
 class ScreenshotContext extends PageObjectExtension
 {
@@ -9,7 +10,25 @@ class ScreenshotContext extends PageObjectExtension
     protected static $wsendUser = null;
     protected $basicScreenshotFolder = 'artifacts/screenshots';
 
-     /**
+    /**
+     * Guzzle client.
+     *
+     * @var \GuzzleHttp\Client
+     */
+    protected $guzzle;
+
+    /**
+     * ScreenshotContext constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        // Initialize Guzzle client.
+        $this->guzzle = new Client();
+    }
+
+    /**
      * @BeforeScenario
      */
     public function cacheScenarioName($event)
@@ -35,7 +54,7 @@ class ScreenshotContext extends PageObjectExtension
      */
     protected function folderForScreenshots()
     {
-        if(!is_dir($this->basicScreenshotFolder)) {
+        if (!is_dir($this->basicScreenshotFolder)) {
             mkdir($this->basicScreenshotFolder);
         }
     }
@@ -80,27 +99,39 @@ class ScreenshotContext extends PageObjectExtension
             self::$wsendUser = $this->getWsendUser();
         }
 
-        exec(sprintf(
-                'curl -F "uid=%s" -F "filehandle=@%s" %s 2>/dev/null',
-                self::$wsendUser,
-                $filename,
-                'https://wsend.net/upload_cli'
-        ), $output, $return);
+        // Send screenshot to Wsend.
+        $response = $this->guzzle->post(
+          'https://wsend.net/upload_cli',
+          [
+            'multipart' => [
+              [
+                'name' => 'uid',
+                'contents' => ScreenshotContext::$wsendUser,
+              ],
+              [
+                'name' => 'filehandle',
+                'contents' => fopen($filename, 'r'),
+              ],
+            ],
+          ]
+        );
 
-        return $output[0];
+        return $response->getBody();
     }
 
     protected function getWsendUser()
     {
-        // Create a wsend anonymous user.
-        $curl = curl_init('https://wsend.net/createunreg');
-        curl_setopt($curl, CURLOPT_POSTFIELDS, 'start=1');
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-
-        $wsendUser = curl_exec($curl);
-        curl_close($curl);
-
-        return $wsendUser;
+        return $this
+          ->guzzle
+          ->post(
+            'https://wsend.net/createunreg',
+            [
+              'form_params' => [
+                'start' => 1,
+              ],
+            ]
+          )
+          ->getBody();
     }
 
     protected function getScreenshotFilename()
