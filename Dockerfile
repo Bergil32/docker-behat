@@ -19,23 +19,13 @@ RUN echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/ap
     && curl -sS https://getcomposer.org/installer | php -- --filename=composer \
     --install-dir=/usr/bin --version=1.0.0 \
 
-# Install Behat.
 WORKDIR /srv
-ADD composer.json composer.json
+# Add files and folders to container.
+ADD ["composer.json", "behat.yml", "entrypoint.sh", "features/", "./"]
+# Install and initialize Behat.
 RUN composer install \
-    && rm composer.lock
+    && rm composer.lock \
+    && bin/behat --init
 
-# ADD behat.yml and features folder.
-ADD behat.yml behat.yml \
-    features/ features/
-
-# Initialize Behat.
-WORKDIR /srv/bin
-RUN behat --init
-
-# Copy entrypoint.sh script.
-COPY entrypoint.sh /entrypoint.sh
-
-WORKDIR /
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["./entrypoint.sh"]
 CMD ["--format=pretty", "--out=std", "--format=cucumber_json", "--out=std"]
