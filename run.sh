@@ -1,10 +1,6 @@
 #!/bin/sh
 
-# Run selenium container.
-docker run --restart=always --name=selenium_chrome -d -v /dev/shm:/dev/shm selenium/standalone-chrome
-# Pause for 1 second to give selenium time to start properly.
-sleep 1s
-# Start behat container.
-docker run -ti --rm --name=docker_behat --link selenium_chrome -v $(pwd):/srv bergil/docker-behat
-# Stop and remove selenium container.
-docker rm -f selenium_chrome
+# Up containers in detached mode and show logs of the Behat container.
+docker-compose up -d --force-recreate && docker-compose logs -f behat
+# Stop and remove containers.
+docker-compose stop && docker-compose rm -f

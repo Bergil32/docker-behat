@@ -1,0 +1,16 @@
+version: "2"
+
+services:
+  selenium:
+    image: selenium/standalone-chrome
+    volumes:
+      - /dev/shm:/dev/shm
+
+  behat:
+    image: bergil/docker-behat
+    volumes:
+      - ./:/srv
+    links:
+      - selenium
+    depends_on:
+      - selenium
