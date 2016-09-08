@@ -3,16 +3,16 @@ MAINTAINER Dmytro Shavaryn <shavarynd@gmail.com>
 
 #Install PHP7 with needed exstentions and composer.
 RUN echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
-    && apk add --update php7@testing \
-    php7-dom@testing \
-    php7-curl@testing \
-    php7-json@testing \
-    php7-phar@testing \
-    php7-openssl@testing \
-    php7-mbstring@testing \
-    php7-ctype@testing \
-    php7-pdo_mysql@testing \
-    php7-session@testing \
+    && apk add --update \
+    php7-dom \
+    php7-curl \
+    php7-json \
+    php7-phar \
+    php7-openssl \
+    php7-mbstring \
+    php7-ctype \
+    php7-pdo_mysql \
+    php7-session \
     curl \
     && rm -fr /var/cache/apk/* \
     && ln -s /usr/bin/php7 /usr/bin/php \
