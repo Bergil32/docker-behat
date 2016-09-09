@@ -1,10 +1,12 @@
-docker-behat
+Environment for running Behat tests.
 ============
+
+###### The image and environment architecture are regularly updated. Check for updates.   
 
 [![](https://images.microbadger.com/badges/image/bergil/docker-behat.svg)](https://microbadger.com/images/bergil/docker-behat)
 
 
-This is tiny behat image based on [Alpine Linux](https://hub.docker.com/_/alpine/) with [PHP7](http://nl.alpinelinux.org/alpine/edge/testing/).
+This is tiny behat image based on [Alpine Linux](https://hub.docker.com/_/alpine/) with PHP7.
 
 This image includes:
 
