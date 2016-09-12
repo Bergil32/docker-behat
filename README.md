@@ -26,8 +26,6 @@ This image includes:
 
 [PHP Unit](https://packagist.org/packages/phpunit/phpunit)
 
-[Page object extension](https://packagist.org/packages/sensiolabs/behat-page-object-extension)
-
 [Faker](https://packagist.org/packages/fzaninotto/faker)
 
 [PHPspec2-expect](https://packagist.org/packages/bossa/phpspec2-expect)

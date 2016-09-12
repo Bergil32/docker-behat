@@ -9,7 +9,6 @@ default:
         - Drupal\DrupalExtension\Context\MarkupContext: ~
         - Drupal\DrupalExtension\Context\MessageContext: ~
   extensions:
-    SensioLabs\Behat\PageObjectExtension: ~
     Behat\MinkExtension:
       javascript_session: selenium2
       selenium2:

@@ -10,7 +10,6 @@
     "drupal/drupal-extension": "3.2.2",
     "guzzlehttp/guzzle": "6.2.1",
     "phpunit/phpunit": "5.5.2",
-    "sensiolabs/behat-page-object-extension": "2.0.0",
     "fzaninotto/faker": "1.6.0",
     "bossa/phpspec2-expect": "2.0.0",
     "vanare/behat-cucumber-json-formatter": "1.1.1"

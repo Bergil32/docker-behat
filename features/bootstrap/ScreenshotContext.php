@@ -1,10 +1,11 @@
 <?php
 
+use Drupal\DrupalExtension\Context\RawDrupalContext;
 use Behat\Testwork\Tester\Result\TestResult;
 use Behat\Mink\Driver\Selenium2Driver;
 use GuzzleHttp\Client;
 
-class ScreenshotContext extends PageObjectExtension
+class ScreenshotContext extends RawDrupalContext
 {
     protected $scenarioTitle = null;
     protected static $wsendUser = null;
@@ -22,9 +23,7 @@ class ScreenshotContext extends PageObjectExtension
      */
     public function __construct()
     {
-        parent::__construct();
-
-        // Initialize Guzzle client.
+          // Initialize Guzzle client.
         $this->guzzle = new Client();
     }
 
