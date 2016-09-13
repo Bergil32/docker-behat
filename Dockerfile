@@ -1,7 +1,7 @@
 FROM alpine:edge
 MAINTAINER Dmytro Shavaryn <shavarynd@gmail.com>
 
-#Install PHP7 with needed exstentions and composer.
+# Install PHP7 with needed exstentions and composer.
 RUN apk add --update \
     php7-dom \
     php7-curl \
@@ -20,7 +20,7 @@ RUN apk add --update \
 
 WORKDIR /srv
 # Add files and folders to container.
-ADD ["composer.json", "behat.yml", "entrypoint.sh", "features/", "./"]
+ADD ["composer.json", "entrypoint.sh", "./"]
 # Install and initialize Behat.
 RUN composer install \
     && rm composer.lock \
