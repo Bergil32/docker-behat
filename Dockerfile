@@ -27,4 +27,3 @@ RUN composer install \
     && bin/behat --init
 
 ENTRYPOINT ["./entrypoint.sh"]
-CMD ["--format=pretty", "--out=std", "--format=cucumber_json", "--out=std"]
