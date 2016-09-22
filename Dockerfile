@@ -1,7 +1,7 @@
 FROM alpine:edge
 MAINTAINER Dmytro Shavaryn <shavarynd@gmail.com>
 
-# Install PHP7 with needed exstentions and composer.
+# Install PHP7 with needed exstentions and composer with hirak/prestissimo.
 RUN apk add --update \
     php7-dom \
     php7-curl \
@@ -17,13 +17,16 @@ RUN apk add --update \
     && ln -s /usr/bin/php7 /usr/bin/php \
     && curl -sS https://getcomposer.org/installer | php -- --filename=composer \
     --install-dir=/usr/bin --version=1.0.0 \
+    && composer global require "hirak/prestissimo:^0.3"
 
-WORKDIR /srv
 # Add files and folders to container.
-ADD ["composer.json", "entrypoint.sh", "./"]
-# Install and initialize Behat.
+ADD ["composer.json", "entrypoint.sh", "/srv/"]
+WORKDIR /srv
+
+# Install and initialize Behat, create folder for artifacts.
 RUN composer install \
     && rm composer.lock \
-    && bin/behat --init
+    && bin/behat --init \
+    && mkdir -p artifacts
 
-ENTRYPOINT ["./entrypoint.sh"]
+ENTRYPOINT ["/srv/entrypoint.sh"]

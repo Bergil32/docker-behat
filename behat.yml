@@ -14,25 +14,23 @@ default:
       selenium2:
         browser: chrome
         wd_host: http://selenium:4444/wd/hub
-      base_url: 'https://en.wikipedia.org'
+      # Set http or https and internal port for web server container.
+      base_url: 'https://nginx:80'
       goutte:
         guzzle_parameters:
+          # Disable checking of the SSL certificates.
+          verify: false
           config:
             curl:
               CURLOPT_TIMEOUT: 300
               CURLOPT_CONNECTTIMEOUT: 0
     Drupal\DrupalExtension:
       blackbox: ~
-#      api_driver: drupal
-#      drush:
-#        root: %paths.base%/../
-#      drupal:
-#        drupal_root: %paths.base%/../
-      text:
-        log_in: Log in
-        log_out: Log out
-        username_field: Username
-        password_field: Password
+      api_driver: drupal
+      drush:
+        root: /drupal
+      drupal:
+        drupal_root: /drupal
       selectors:
         message_selector: .messages
         error_message_selector: .messages.error

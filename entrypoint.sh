@@ -1,20 +1,17 @@
 #!/bin/sh
-# Loop to keep behat container waiting while site is being built inside php container.
-# To run tests you need to pass some behat parameters to behat container.
-# E.x., 'docker-compose exec behat ./entrypoint.sh "--format=pretty --out=std"'.
-while [ -z "$*" ]
-do
-  sleep 2
-done
 
-# Give some additional time for site to start properly.
-sleep 5
+# If else statement to keep behat container waiting while site is being built inside php container.
+# To run tests you need to pass some parameters to behat container.
+# E.x., docker-compose exec behat /srv/entrypoint.sh "--format=pretty --out=std --format=cucumber_json --out=std".
+if [ -z "$*" ]; then
 
-# Navigate to the folder with Behat.
-cd /srv
+  # Foreground command to keep container working.
+  tail -f /dev/null
+else
 
-# Run Behat with parameters passed using CMD.
-behat $*
+  # Run Behat with parameters passed using CMD.
+  bin/behat $*
 
-# Fix permissions to artifacts folder.
-chmod -R 777 /srv/artifacts
+  # Fix permissions to artifacts folder.
+  chmod -R 777 /srv/artifacts
+fi

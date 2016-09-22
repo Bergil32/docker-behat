@@ -1,0 +1,34 @@
+version: "2"
+
+services:
+  selenium:
+    image: selenium/standalone-chrome
+    volumes:
+      - /dev/shm:/dev/shm
+    # Link selenium with webserver container.
+    links:
+      - nginx
+
+  behat:
+    image: bergil/docker-behat:ci
+    volumes:
+      # Mount behat.yml file as /srv/behat.yml.
+      - {some path}/behat.yml:/srv/behat.yml
+      # Mount features folder as /srv/features.
+      - {some path}/features:/srv/features
+      # Mount artifacts folder as /srv/artifacts.
+      - {some path}/artifacts:/srv/artifacts
+      # Mount drupal root directory as /drupal.
+      - {some path}/drupal8:/drupal
+    # Link behat with selenium, webserver, database and web containers.
+    links:
+      - selenium
+      - nginx
+      - mariadb
+      - php
+    # Set after what services behat container shall start.
+    depends_on:
+      - selenium
+      - nginx
+      - php
+      - mariadb
