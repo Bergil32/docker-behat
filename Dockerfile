@@ -25,7 +25,6 @@ WORKDIR /srv
 
 # Install and initialize Behat, create folder for artifacts.
 RUN composer install \
-    && rm composer.lock \
     && bin/behat --init \
     && mkdir -p artifacts
 

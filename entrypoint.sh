@@ -1,33 +1,45 @@
 #!/bin/sh
 
+# Section for running tests in Docker environments.
 if [ "$DOCKER_TESTING_ENVIRONMENT" -eq "1" ]; then
 
-# If else statement to keep behat container waiting while site is being built inside php container.
-# To run tests you need to pass some parameters to behat container.
+# If else statement to keep Behat container waiting while site is being built inside php container.
+# To run tests you need to pass some parameters to Behat container.
 # E.x., docker-compose exec behat /srv/entrypoint.sh "--format=pretty --out=std --format=cucumber_json --out=std".
   if [ -z "$*" ]; then
 
+    # Update composer if $COMPOSER_UPDATE = 1.
+    if [ "$COMPOSER_UPDATE" -eq "1" ]; then
+        composer update
+    fi
+
     # Foreground command to keep container working.
     tail -f /dev/null
-  else
 
-    # Run Behat with parameters passed using CMD.
+  # Run Behat with parameters passed using CMD.
+  else
     bin/behat $*
   fi
 fi
 
+# Section for running tests in non Docker environments.
 if [ "$DOCKER_TESTING_ENVIRONMENT" -eq "0" ]; then
 
-  # Give some additional time for Selenium server to start properly.
-  sleep 2
-
-  if [ -z "$*" ]; then
-
-    # Set default parameters for behat if no parameters was passed.
-    bin/behat --format=pretty --out=std --format=cucumber_json --out=std
+  # Update composer if $COMPOSER_UPDATE = 1.
+  if [ "$COMPOSER_UPDATE" -eq "1" ]; then
+      composer update
   else
 
-    # Run Behat with parameters passed using CMD.
+    # Give some additional time for Selenium server to start properly.
+    sleep 2
+  fi
+
+  # Set default parameters for behat if no parameters was passed.
+  if [ -z "$*" ]; then
+    bin/behat --format=pretty --out=std --format=cucumber_json --out=std
+
+  # Run Behat with parameters passed using CMD.
+  else
     bin/behat $*
   fi
 fi
