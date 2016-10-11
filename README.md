@@ -36,7 +36,7 @@ Also, it uses official [selenium/standalone-chrome](https://github.com/SeleniumH
 
 * Clone a repository.
 ```
-git clone https://github.com/Bergil32/docker-behat.git
+git clone https://github.com/Bergil32/behat.git
 ```
 * Put your custom contexts into "features/bootstrap/" folder if needed.
 
