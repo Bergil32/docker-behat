@@ -67,10 +67,7 @@ base_url: 'https://en.wikipedia.org'
 30      - php
 31      - mariadb    
 ```
-* Set DOCKER_TESTING_ENVIRONMENT variable to 0.
-```
-DOCKER_TESTING_ENVIRONMENT: 0
-```
+
 * Run test.sh script to run tests.
 ```
 sh test.sh
