@@ -2,7 +2,8 @@ FROM alpine:edge
 MAINTAINER Dmytro Shavaryn <shavarynd@gmail.com>
 
 # Install PHP7 with needed exstentions and composer with hirak/prestissimo.
-RUN apk add --update \
+RUN apk add --no-cache \
+    php7 \
     php7-dom \
     php7-curl \
     php7-json \
