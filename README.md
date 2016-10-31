@@ -54,19 +54,6 @@ E.x.
 ```
 base_url: 'https://en.wikipedia.org'
 ```
-* Remove (or comment) following lines from the docker-compose.behat.yml (line numbers are given in the code block).
-```
-8    links:
-9     - nginx
-...
-24      - nginx
-25      - mariadb
-26      - php
-...
-29      - nginx
-30      - php
-31      - mariadb    
-```
 
 * Run test.sh script to run tests.
 ```
@@ -79,8 +66,6 @@ docker-compose -f docker-compose.behat.yml down
 
 ### Docker websites
 
-Instruction is written for using with [Docker4Drupal](http://docker4drupal.org/) as example.
-
 * Configure base URL in behat.yml for testing site in following way.
 
 ```
@@ -88,12 +73,12 @@ base_url: '{https/http}://{web server service name}:{internal port}'
 ```
 E.x.,
 ```
-base_url: 'https://nginx:80'
+base_url: 'http://nginx:80'
 ```
 
-* Configure links between containers in docker-compose.behat.yml.
-
 * Additionally for Drupal 8 add the following line into your settings.php.
+
+E.x.,
 ```
 $settings['trusted_host_patterns'][] = '^nginx$';
 ``` 
