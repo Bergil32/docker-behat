@@ -23,7 +23,7 @@ RUN apk add --no-cache \
     && ln -s /usr/bin/php7 /usr/bin/php \
     && curl -sS https://getcomposer.org/installer | php -- --filename=composer \
     --install-dir=/usr/bin \
-    && composer global require "hirak/prestissimo:^0.3"
+    && composer global require "hirak/prestissimo:^0.3" \
     && pecl install imagick \
     && docker-php-ext-enable imagick \
     && apk del autoconf g++ libtool make
