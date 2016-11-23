@@ -17,7 +17,7 @@ RUN apk add --no-cache \
     && rm -fr /var/cache/apk/* \
     && ln -s /usr/bin/php7 /usr/bin/php \
     && curl -sS https://getcomposer.org/installer | php -- --filename=composer \
-    --install-dir=/usr/bin --version=1.0.0 \
+    --install-dir=/usr/bin \
     && composer global require "hirak/prestissimo:^0.3"
 
 # Add files and folders to container.
