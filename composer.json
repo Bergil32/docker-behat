@@ -13,7 +13,10 @@
     "fzaninotto/faker": "1.6.0",
     "bossa/phpspec2-expect": "2.0.0",
     "vanare/behat-cucumber-json-formatter": "1.1.1",
-    "sensiolabs/behat-page-object-extension": "2.0.0"
+    "sensiolabs/behat-page-object-extension": "2.0.0",
+    "bex/behat-screenshot": "1.2.5",
+    "bex/behat-screenshot-image-driver-uploadpie": "1.0.1"
+
   },
   "config": {
     "bin-dir": "bin/"
