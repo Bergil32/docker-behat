@@ -15,7 +15,8 @@
     "vanare/behat-cucumber-json-formatter": "1.1.1",
     "sensiolabs/behat-page-object-extension": "2.0.0",
     "bex/behat-screenshot": "1.2.6",
-    "bex/behat-screenshot-image-driver-uploadpie": "1.0.1"
+    "bex/behat-screenshot-image-driver-uploadpie": "1.0.1",
+    "symfony/symfony": "2.8.15"
 
   },
   "config": {
