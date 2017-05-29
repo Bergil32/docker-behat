@@ -13,9 +13,11 @@ RUN apk add --no-cache \
     php7-ctype \
     php7-pdo_mysql \
     php7-session \
+    php7-xml \
+    php7-xmlwriter \
+    php7-tokenizer \
     curl \
     && rm -fr /var/cache/apk/* \
-    && ln -s /usr/bin/php7 /usr/bin/php \
     && curl -sS https://getcomposer.org/installer | php -- --filename=composer \
     --install-dir=/usr/bin --version=1.0.0 \
     && composer global require "hirak/prestissimo:^0.3"
